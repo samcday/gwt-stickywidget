@@ -94,6 +94,10 @@ public class StickyWidget
 	protected void onUnload() {
 		super.onUnload();
 
+		if(this.detached) {
+			this.reattach();
+		}
+
 		this.resizeReg.removeHandler();
 		this.scrollReg.removeHandler();
 	}
@@ -150,6 +154,7 @@ public class StickyWidget
 	 * perfectly in dimensions and position.
 	 */
 	private void detach(boolean top) {
+		GWT.log("Detaching.");
 		// Before we do anything, we need to suss out some current details on the
 		// current Element (positioning, dimensions, etc). 
 		this.previousPositioning = this.elStyle.getPosition();
@@ -231,6 +236,8 @@ public class StickyWidget
 	}
 
 	private void reattach() {
+		GWT.log("Reattaching.");
+		
 		if(this.ghostElement != null) {
 			this.ghostElement.removeFromParent();
 			this.ghostElement = null;
